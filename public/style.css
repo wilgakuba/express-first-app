@@ -1,0 +1,14 @@
+h1 {
+  font-weight: lighter;
+  font-style: italic;
+}
+
+img {
+  width: 350px;
+  height: 100%;
+}
+
+.dark {
+  background-color: black;
+  color: white;
+}
