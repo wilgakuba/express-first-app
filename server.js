@@ -7,6 +7,7 @@ app.engine('hbs', hbs({ extname: 'hbs', layoutsDir: './layouts', defaultLayout: 
 app.set('view engine', 'hbs');
 
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
   res.render('index' );
@@ -31,6 +32,22 @@ app.get('/info', (req, res) => {
 app.get('/history', (req, res) => {
   res.render('history');
 });
+
+app.post('/contact/send-message', (req, res) => {
+
+  const { author, sender, title, message } = req.body;
+
+  if (author && sender && title && message) {
+    const fileName = req.file.originalname;
+    const fileExtension = path.extname(fileName).substring(1);
+
+    res.render('contact', { isSent: true, fileName, fileExtension });
+  } else {
+    res.render('contact', { isError: true });
+  }
+
+});
+
 
 app.use((req, res) => {
   res.status(404).send('404 not found...');
